@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-web
+  annotations:
+      kubernetes.io/tls-acme: 'true' 
+      ingress.kubernetes.io/ssl-redirect: "true"
+      kubernetes.io/ingress.allow-http: "false"
+spec:
+  tls:
+    - secretName: {{ .Values.tlssecret }}
+      hosts:
+        - {{ .Values.hostname }}
+  rules:
+    - host: {{ .Values.hostname }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: web
+                port:
+                  number: 8000

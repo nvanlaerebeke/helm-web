@@ -1,0 +1,3 @@
+name: web
+tlssecret: home-tls
+hostname: web.crazyzone.be

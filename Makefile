@@ -1,7 +1,7 @@
 .PHONY: init save push
 
 REGISTRY:=registry.crazyzone.be
-NAME=web
+NAME=helm-web
 VERSION=$(shell yq eval -j Chart.yaml | jq -r .version)
 FULLVERSIONNAME=${REGISTRY}/${NAME}:${VERSION}
 FULLLATESTNAME=${REGISTRY}/${NAME}:latest

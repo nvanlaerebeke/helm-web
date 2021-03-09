@@ -1,4 +1,4 @@
-.PHONY: init package
+.PHONY: init save push
 
 REGISTRY:=registry.crazyzone.be
 NAME=web

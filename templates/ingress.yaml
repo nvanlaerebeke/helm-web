@@ -8,11 +8,14 @@ metadata:
       kubernetes.io/ingress.allow-http: "false"
 spec:
   tls:
-    - secretName: {{ .Values.tlssecret }}
+    - secretName: home-tls
       hosts:
-        - {{ .Values.hostname }}
+      {{- range $hostname := .Values.hostnames }}
+      - {{ $hostname }}
+      {{- end }}
   rules:
-    - host: {{ .Values.hostname }}
+    {{- range $hostname := .Values.hostnames }}
+    - host: {{ $hostname }}
       http:
         paths:
           - path: /
@@ -22,3 +25,4 @@ spec:
                 name: web
                 port:
                   number: 8000
+    {{- end }}                  

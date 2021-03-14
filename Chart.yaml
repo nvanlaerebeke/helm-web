@@ -3,3 +3,6 @@ name: web
 version: 0.0.1
 appVersion: 0.0.1
 description: Test web application to verify things are up and running
+hostnames: 
+  - web.crazytje.be
+  - web.crazyzone.be

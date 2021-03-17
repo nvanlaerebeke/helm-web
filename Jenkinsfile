@@ -24,6 +24,7 @@ spec:
 export HELM_EXPERIMENTAL_OCI=1          
 
 NAME=helm-web
+REGISTRY=registry.crazyzone.be
 VERSION=`yq read Chart.yaml -j | jq -r .version`
 FULLVERSIONNAME=$REGISTRY/$NAME:$VERSION
 FULLLATESTNAME=$REGISTRY/$NAME:latest
@@ -38,7 +39,4 @@ helm chart push "$FULLLATESTNAME"
       }
     }
   }
-  parameters {
-    string(defaultValue: 'registry.crazyzone.be', name: 'REGISTRY', trim: true)
-  }  
 }

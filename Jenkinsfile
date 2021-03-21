@@ -36,6 +36,10 @@ spec:
         container(name: 'helm') {
           sh '''#!/bin/sh 
 helm upgrade -n home web .
+
+echo helm list -A -o json -f "$NAME"
+helm list -A -o json -f "$NAME"
+
 exit
 if [[ $GIT_LOCAL_BRANCH == "main" || $GIT_LOCAL_BRANCH == "autoupdate" ]];
 then

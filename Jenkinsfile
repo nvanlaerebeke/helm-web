@@ -35,7 +35,7 @@ spec:
       steps {
         container(name: 'helm') {
           sh '''#!/bin/sh 
-helm upgrade --install --force -n "home" "web" .
+helm upgrade -n home web .          
 exit
 if [[ $GIT_LOCAL_BRANCH == "main" || $GIT_LOCAL_BRANCH == "autoupdate" ]];
 then

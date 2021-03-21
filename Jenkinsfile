@@ -23,11 +23,18 @@ spec:
           sh '''#!/bin/sh 
 export HELM_EXPERIMENTAL_OCI=1          
 
+if [[ $GIT_LOCAL_BRANCH == "main" || $GIT_LOCAL_BRANCH == "master" ]];
+then
+  TAG=latest
+else
+  TAG=$GIT_LOCAL_BRANCH
+fi
+
 NAME=helm-web
 REGISTRY=registry.crazyzone.be
 VERSION=`yq read Chart.yaml -j | jq -r .version`
 FULLVERSIONNAME=$REGISTRY/$NAME:$VERSION
-FULLLATESTNAME=$REGISTRY/$NAME:latest
+FULLLATESTNAME=$REGISTRY/$NAME:$TAG
 
 helm chart save . "$FULLVERSIONNAME"
 helm chart save . "$FULLLATESTNAME"
@@ -35,7 +42,18 @@ helm chart save . "$FULLLATESTNAME"
 helm chart push "$FULLVERSIONNAME"
 helm chart push "$FULLLATESTNAME"
           '''
-        }        
+        }
+        container(name: 'helm') {
+          sh '''#!/bin/sh 
+#Auto deloy the master branch
+if [[ $GIT_LOCAL_BRANCH == "main" || $GIT_LOCAL_BRANCH == "master" ]];
+then
+    NAMESPACE=`yq read Chart.yaml -j | jq -r .namespace`
+    NAME=`yq read Chart.yaml -j | jq -r .name`
+    helm upgrade -n "$NAMESPACE" "$NAME" .
+fi
+          '''
+        }                
       }
     }
   }

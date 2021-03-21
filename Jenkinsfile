@@ -30,7 +30,7 @@ spec:
     }
     stage('helm-upgrade') {
       when { 
-          branch 'autoupdate'
+          branch 'master'
       }
       steps {
         container(name: 'helm') {

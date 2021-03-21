@@ -35,6 +35,7 @@ spec:
       steps {
         container(name: 'helm') {
           sh '''#!/bin/sh 
+NAME=`yq read Chart.yaml -j | jq -r .name`
 echo helm list -A -o json -f "$NAME"
 helm list -A -o json -f "$NAME"
 

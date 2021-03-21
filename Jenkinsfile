@@ -50,6 +50,7 @@ helm chart push "$FULLLATESTNAME"
 #Auto deloy the master branch
 if [[ $GIT_LOCAL_BRANCH == "main" || $GIT_LOCAL_BRANCH == "autoupdate" ]];
 then
+    sleep infinity
     NAMESPACE=`yq read Chart.yaml -j | jq -r .namespace`
     NAME=`yq read Chart.yaml -j | jq -r .name`
     helm upgrade -n "$NAMESPACE" "$NAME" .

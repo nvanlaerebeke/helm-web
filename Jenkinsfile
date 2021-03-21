@@ -35,7 +35,7 @@ spec:
       steps {
         container(name: 'helm') {
           sh '''#!/bin/sh 
-./build.sh upgrade home
+/build.sh upgrade home
           '''
         }
       }

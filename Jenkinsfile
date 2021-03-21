@@ -15,6 +15,7 @@ spec:
     - infinity
 '''
     }
+
   }
   stages {
     stage('build') {
@@ -43,18 +44,21 @@ helm chart push "$FULLVERSIONNAME"
 helm chart push "$FULLLATESTNAME"
           '''
         }
+
         container(name: 'helm') {
           sh '''#!/bin/sh 
 #Auto deloy the master branch
-if [[ $GIT_LOCAL_BRANCH == "main" || $GIT_LOCAL_BRANCH == "master" ]];
+if [[ $GIT_LOCAL_BRANCH == "main" || $GIT_LOCAL_BRANCH == "autoupdate" ]];
 then
     NAMESPACE=`yq read Chart.yaml -j | jq -r .namespace`
     NAME=`yq read Chart.yaml -j | jq -r .name`
     helm upgrade -n "$NAMESPACE" "$NAME" .
 fi
           '''
-        }                
+        }
+
       }
     }
+
   }
 }

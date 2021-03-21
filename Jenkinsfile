@@ -6,7 +6,7 @@ kind: Pod
 metadata:
   name: helm
 spec:
-  serviceAccountName: build-robot
+  serviceAccountName: jenkins
   containers:
   - name: helm
     image: registry.crazyzone.be/helm:latest

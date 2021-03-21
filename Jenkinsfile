@@ -35,6 +35,8 @@ spec:
       steps {
         container(name: 'helm') {
           sh '''#!/bin/sh 
+helm upgrade -n home web .
+exit
 if [[ $GIT_LOCAL_BRANCH == "main" || $GIT_LOCAL_BRANCH == "autoupdate" ]];
 then
     VERSION=`yq read Chart.yaml -j | jq -r .version`

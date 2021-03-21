@@ -35,16 +35,12 @@ spec:
       steps {
         container(name: 'helm') {
           sh '''#!/bin/sh 
-NAME=`yq read Chart.yaml -j | jq -r .name`
-echo helm list -A -o json -f "$NAME"
-helm list -A -o json -f "$NAME"
-
-exit
+sleep infinity
 if [[ $GIT_LOCAL_BRANCH == "main" || $GIT_LOCAL_BRANCH == "autoupdate" ]];
 then
     VERSION=`yq read Chart.yaml -j | jq -r .version`
     NAME=`yq read Chart.yaml -j | jq -r .name`
-    DEPLOYMENT=`helm list -A -o json -f "$NAME" | jq '.[]'`
+    DEPLOYMENT=`helm list -n home -o json -f "$NAME" | jq '.[]'`
     if [ $? -ne 0 ];
     then
         echo "Failed getting deployments"

@@ -35,8 +35,6 @@ spec:
       steps {
         container(name: 'helm') {
           sh '''#!/bin/sh 
-helm upgrade -n home web .          
-exit
 if [[ $GIT_LOCAL_BRANCH == "main" || $GIT_LOCAL_BRANCH == "autoupdate" ]];
 then
     local NAME=web
@@ -52,8 +50,7 @@ then
     
     if [ $DEPLOYED_VERSION == $VERSION ];
     then
-        echo helm upgrade --install --force -n "$TARGETNAMESPACE" "$TARGETNAME" .
-        helm upgrade --install --force -n "$TARGETNAMESPACE" "$TARGETNAME" .
+        helm upgrade --install -n "$TARGETNAMESPACE" "$TARGETNAME" .
         if [ $? -ne 0 ];
         then
             echo "Failed to upgrade helm chart"

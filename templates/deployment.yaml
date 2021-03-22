@@ -20,3 +20,10 @@ spec:
         ports:
         - containerPort: 8000
           name: web
+        readinessProbe:
+          httpGet:
+            scheme: HTTP
+            path: /
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 5        

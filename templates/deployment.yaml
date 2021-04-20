@@ -2,24 +2,24 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: web
-  name: web
+    app: {{ $.Values.name }}
+  name:  {{ $.Values.name }}
 spec:
-  replicas: 1
+  replicas:  {{ $.Values.replicaCount }}
   selector:
     matchLabels:
-      app: web
+      app:  {{ $.Values.name }}
   template:
     metadata:
       labels:
-        app: web
+        app:  {{ $.Values.name }}
     spec:
       containers:
       - image: crccheck/hello-world
-        name: web
+        name:  {{ $.Values.name }}
         ports:
         - containerPort: 8000
-          name: web
+          name: {{ $.Values.name }}
         readinessProbe:
           httpGet:
             scheme: HTTP

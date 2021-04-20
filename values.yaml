@@ -2,4 +2,4 @@ name: web
 tlssecret: home-tls
 hostnames: 
   - web.crazyzone.be
-  - web.crazytje.be
+replicaCount: 1

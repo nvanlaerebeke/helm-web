@@ -22,7 +22,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: web
+                name: {{ $.Values.name }}
                 port:
                   number: 8000
     {{- end }}                  
